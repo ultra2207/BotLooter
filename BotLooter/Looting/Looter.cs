@@ -17,7 +17,7 @@ public class Looter
 
     public async Task Loot(List<LootClient> lootClients, Configuration config)
     {
-        _logger.Information("Начинаю лутать. Потоков: {ThreadCount}", config.LootThreadCount);
+        _logger.Information("Starting loot process. Threads: {ThreadCount}", config.LootThreadCount);
 
         var lootReceiverPicker = new LootReceiverPicker(config);
         
@@ -59,14 +59,14 @@ public class Looter
                 await WaitForNextLoot(lootResult, config);
             });
         
-        _logger.Information("Лутание завершено");
+        _logger.Information("Looting completed");
         
         ShowResultsSummary(lootResults);
     }
 
     private async Task WaitForNextLoot(LootResult lootResult, Configuration config)
     {
-        if (lootResult.Message == "Пустые инвентари")
+        if (lootResult.Message == "Empty inventories")
         {
             await Task.Delay(TimeSpan.FromSeconds(config.DelayInventoryEmptySeconds));
         }
@@ -78,9 +78,9 @@ public class Looter
 
     private void ShowResultsSummary(IReadOnlyCollection<LootResult> lootResults)
     {
-        _logger.Information("Статистика");
-        _logger.Information($"Предметов залутано: {lootResults.Sum(r => r.LootedItemCount)}");
-        _logger.Information($"Успешных обменов: {lootResults.Count(r => r.Success)}");
-        _logger.Information($"Неуспешных обменов: {lootResults.Count(r => !r.Success)}");
+        _logger.Information("Statistics");
+        _logger.Information($"Items looted: {lootResults.Sum(r => r.LootedItemCount)}");
+        _logger.Information($"Successful trades: {lootResults.Count(r => r.Success)}");
+        _logger.Information($"Unsuccessful trades: {lootResults.Count(r => !r.Success)}");
     }
 }

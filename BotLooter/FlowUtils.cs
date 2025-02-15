@@ -11,7 +11,7 @@ public static class FlowUtils
     public static void AbortWithError(string error)
     {
         Log.Logger.Error(error);
-        Log.Logger.Information("Нажмите любую клавишу для выхода.");
+        Log.Logger.Information("Press any key to exit.");
         Console.ReadKey();
         Environment.Exit(0);
     }
@@ -23,7 +23,7 @@ public static class FlowUtils
 
         if (AskForApproval)
         {
-            Log.Logger.Information("Нажмите любую клавишу для продолжения.");
+            Log.Logger.Information("Press any key to continue.");
             Console.ReadKey();
         }
 
@@ -39,7 +39,7 @@ public static class FlowUtils
 
         if (AskForExit)
         {
-            Log.Logger.Information("Нажмите '{Keys}' для выхода.", "ctrl + c");
+            Log.Logger.Information("Press '{Keys}' to exit.", "ctrl + c");
 
             Console.TreatControlCAsInput = true;
 
@@ -52,9 +52,8 @@ public static class FlowUtils
                     break;
                 }
             }
-
         }
 
         Environment.Exit(0);
     }
-} 
+}

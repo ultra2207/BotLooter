@@ -32,7 +32,7 @@ public class ProxyRestClientProvider : IRestClientProvider
     {
         if (!File.Exists(filePath))
         {
-            return (null, $"Файла с прокси '{filePath}' не существует");
+            return (null, $"Proxy file '{filePath}' does not exist");
         }
 
         var lines = await File.ReadAllLinesAsync(filePath);
@@ -53,7 +53,7 @@ public class ProxyRestClientProvider : IRestClientProvider
 
             if (webProxy is null)
             {
-                Log.Logger.Warning("Неверный формат прокси на строке {LineNumber}", lineNumber);
+                Log.Logger.Warning("Invalid proxy format on line {LineNumber}", lineNumber);
                 continue;
             }
 

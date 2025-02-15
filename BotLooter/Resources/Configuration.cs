@@ -48,7 +48,7 @@ public class Configuration
 
         if (!File.Exists(filePath))
         {
-            return (null, $"Конфигурационный файл '{filePath}' не найден");
+            return (null, $"Configuration file '{filePath}' not found");
         }
 
         var contents = await File.ReadAllTextAsync(filePath);
@@ -69,14 +69,14 @@ public class Configuration
 
             if (deserialized is null)
             {
-                return (null, "Конфиг имеет неверный формат, подробности:" + Environment.NewLine + string.Join(Environment.NewLine, errors));
+                return (null, "The config has an invalid format, details:" + Environment.NewLine + string.Join(Environment.NewLine, errors));
             }
 
             config = deserialized;
         }
         catch
         {
-            return (null, "Конфиг имеет неверный формат, подробности:" + Environment.NewLine + string.Join(Environment.NewLine, errors));
+            return (null, "The config has an invalid format, details:" + Environment.NewLine + string.Join(Environment.NewLine, errors));
         }
 
         if (config.LootTradeOfferUrl is not null)
@@ -87,7 +87,7 @@ public class Configuration
             }
             catch (InvalidTradeOfferUrlException)
             {
-                return (null, "Параметр конфига 'LootTradeOfferUrl' не заполнен или заполнен неверно.");
+                return (null, "Config parameter 'LootTradeOfferUrl' is either empty or incorrectly filled.");
             }
         }
 
@@ -101,22 +101,22 @@ public class Configuration
                 }
                 catch (InvalidTradeOfferUrlException)
                 {
-                    return (null, "Параметр конфига 'LootTradeOfferUrls' имеет неверные ссылки на обмен.");
+                    return (null, "Config parameter 'LootTradeOfferUrls' contains invalid trade offer links.");
                 }
             }
         }
 
         if (config.LootTradeOfferUrl is null && config.LootTradeOfferUrls is null)
         {
-            return (null, "Необходимо заполнить 'LootTradeOfferUrl' или 'LootTradeOfferUrls'.");
+            return (null, "Either 'LootTradeOfferUrl' or 'LootTradeOfferUrls' must be filled.");
         }
 
         if (config.Inventories?.Count == 0)
         {
             return (null, """
-            В параметре конфига 'Inventories' не указаны инвентари для лута.
-            Формат: appId/contextId
-            Пример заполнения с инвентарем CS:GO
+            The config parameter 'Inventories' does not contain any inventories for looting.
+            Format: appId/contextId
+            Example with a CS:GO inventory:
             ...
             "Inventories": [
                 "730/2"
@@ -127,7 +127,7 @@ public class Configuration
 
         if (config.MaxItemsPerTrade > 8192)
         {
-            return (null, $"Параметр конфига 'MaxItemsPerTrade' не должен быть больше 8192, текущее значение: {config.MaxItemsPerTrade}");
+            return (null, $"The config parameter 'MaxItemsPerTrade' must not exceed 8192, current value: {config.MaxItemsPerTrade}");
         }
             
         return (config, "");

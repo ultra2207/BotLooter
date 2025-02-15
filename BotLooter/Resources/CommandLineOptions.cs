@@ -16,7 +16,7 @@ public class CommandLineParser
 
     var configFileOption = new Option<string>(
       "--config-file-path",
-      description: "Путь к конфигурационному файлу",
+      description: "Path to the configuration file",
       getDefaultValue: () => "BotLooter.Config.json"
     );
 

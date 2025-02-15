@@ -34,8 +34,8 @@ public class GitHubVersionChecker
 
         if (latestRelease is null)
         {
-            _logger.Warning("Не удалось получить последнюю версию BotLooter.");
-            _logger.Information("Ваша версия {Version} Проверить последнюю версию можно здесь {RepositoryUrl}", currentVersion, RepositoryUrl);
+            _logger.Warning("Failed to fetch the latest version of BotLooter.");
+            _logger.Information("Your version: {Version}. You can check the latest version here: {RepositoryUrl}", currentVersion, RepositoryUrl);
             return;
         }
 
@@ -53,14 +53,14 @@ public class GitHubVersionChecker
 
         if (currentVersion < releaseVersion)
         {
-            _logger.Warning("Вы используете старую версию BotLooter. Версия {YourVersion} < {LatestVersion}", currentVersion, releaseVersion);
-            _logger.Information("Вы можете загрузить последнюю версию здесь {RepositoryUrl}", RepositoryUrl);
+            _logger.Warning("You are using an outdated version of BotLooter. Version {YourVersion} < {LatestVersion}", currentVersion, releaseVersion);
+            _logger.Information("You can download the latest version here: {RepositoryUrl}", RepositoryUrl);
             return;
         }
 
         if (currentVersion > releaseVersion)
         {
-            _logger.Information("Скорее всего вы используете pre-release версию BotLooter. Версия {YourVersion} > {LatestVersion}", currentVersion, releaseVersion);
+            _logger.Information("It looks like you are using a pre-release version of BotLooter. Version {YourVersion} > {LatestVersion}", currentVersion, releaseVersion);
             return;
         }
     }
