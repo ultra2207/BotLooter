@@ -3,7 +3,7 @@ using BotLooter.Resources;
 using Polly;
 using Polly.Retry;
 using RestSharp;
-using SmallTail.SteamSession;
+using SteamSession;
 using SteamAuth;
 using static BotLooter.Resources.SteamAccountCredentials;
 
@@ -65,7 +65,7 @@ public class SteamUserSession
     {
         try
         {
-            var loginSession = new SteamLoginSession(_restClient)
+            var loginSession = new SteamLoginSession(request => _restClient.ExecuteAsync(request))
             {
                 Login = Credentials.Login,
                 Password = Credentials.Password,
