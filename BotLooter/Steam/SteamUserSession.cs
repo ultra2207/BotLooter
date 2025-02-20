@@ -3,7 +3,7 @@ using BotLooter.Resources;
 using Polly;
 using Polly.Retry;
 using RestSharp;
-using SteamSession;
+using SmallTail.SteamSession;
 using SteamAuth;
 using static BotLooter.Resources.SteamAccountCredentials;
 
@@ -39,7 +39,7 @@ public class SteamUserSession
     {
         if (await IsSessionAlive())
         {
-            return (true, "Session is alive");
+            return (true, "Сессия жива");
         }
         
         var loginResult = await TryLogin();
@@ -65,7 +65,7 @@ public class SteamUserSession
     {
         try
         {
-            var loginSession = new SteamLoginSession(request => _restClient.ExecuteAsync(request))
+            var loginSession = new SteamLoginSession(_restClient)
             {
                 Login = Credentials.Login,
                 Password = Credentials.Password,
@@ -80,7 +80,7 @@ public class SteamUserSession
 
                 if (!loginResult.Success)
                 {
-                    return (false, $"Failed to log in: {loginResult.Message} {(loginResult.XEResult is null ? "" : $"({loginResult.XEResult})")}");
+                    return (false, $"Не удалось авторизоваться: {loginResult.Message} {(loginResult.XEResult is null ? "" : $"({loginResult.XEResult})")}");
                 }
             }
 
@@ -90,7 +90,7 @@ public class SteamUserSession
 
             if (!getCookiesResult.Success)
             {
-                return (false, $"Failed to retrieve web cookies: {getCookiesResult.Message}");
+                return (false, $"Не удалось получить веб-куки: {getCookiesResult.Message}");
             }
 
             SteamId = ulong.Parse(getCookiesResult.SteamId!);
@@ -112,14 +112,14 @@ public class SteamUserSession
                 Credentials.SteamGuardAccount.DeviceID = GetDeviceId(SteamId.Value.ToString());
             }
             
-            return (true, "Successfully logged in");
+            return (true, "Авторизовался");
         }
         catch
         {
             var isUsingProxy = _restClient.Options.Proxy is not null;
 
             return (false,
-                $"Failed to log in, there may be an issue with Steam or {(isUsingProxy ? "the proxy" : "the internet")}");
+                $"Не удалось авторизоваться, возможно проблема со Стимом или {(isUsingProxy ? "прокси" : "интернетом")}");
         }
     }
     
