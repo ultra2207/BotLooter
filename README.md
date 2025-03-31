@@ -1,7 +1,8 @@
 ## Описание
 
-Софт позволяет передать предметы от нескольких Steam аккаунтов на один. Codebase translated to English by Vergil.
+Софт позволяет передать предметы от нескольких Steam аккаунтов на один.
 Кратко - Лутать ботов.
+Codebase translated to English by Vergil.
 
 ## Функционал
 
