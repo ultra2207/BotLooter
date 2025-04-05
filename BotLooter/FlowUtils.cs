@@ -10,9 +10,6 @@ public static class FlowUtils
     
     public static void AbortWithError(string error)
     {
-        Log.Logger.Error(error);
-        Log.Logger.Information("Press any key to exit.");
-        Console.ReadKey();
         Environment.Exit(0);
     }
 
@@ -32,27 +29,6 @@ public static class FlowUtils
 
     public static void WaitForExit(string? message = null)
     {
-        if (!string.IsNullOrWhiteSpace(message))
-        {
-            Log.Logger.Information(message);
-        }
-
-        if (AskForExit)
-        {
-            Log.Logger.Information("Press '{Keys}' to exit.", "ctrl + c");
-
-            Console.TreatControlCAsInput = true;
-
-            while (true)
-            {
-                var key = Console.ReadKey(true);
-
-                if (key is { Key: ConsoleKey.C, Modifiers: ConsoleModifiers.Control })
-                {
-                    break;
-                }
-            }
-        }
 
         Environment.Exit(0);
     }
