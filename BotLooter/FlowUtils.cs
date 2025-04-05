@@ -18,18 +18,11 @@ public static class FlowUtils
     {
         Log.Logger.Information(messageTemplate, args);
 
-        if (AskForApproval)
-        {
-            Log.Logger.Information("Press any key to continue.");
-            Console.ReadKey();
-        }
-
         Console.CursorLeft = 0;
     }
 
     public static void WaitForExit(string? message = null)
     {
-
         Environment.Exit(0);
     }
 }
